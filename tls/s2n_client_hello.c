@@ -917,7 +917,7 @@ int s2n_client_hello_get_session_id(struct s2n_client_hello *ch, uint8_t *out, u
     return S2N_SUCCESS;
 }
 
-static S2N_RESULT s2n_client_hello_get_raw_extension(uint16_t extension_iana,
+S2N_RESULT s2n_client_hello_get_raw_extension(uint16_t extension_iana,
         struct s2n_blob *raw_extensions, struct s2n_blob *extension)
 {
     RESULT_ENSURE_REF(raw_extensions);
