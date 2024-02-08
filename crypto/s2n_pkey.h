@@ -20,6 +20,7 @@
 #include "crypto/s2n_ecdsa.h"
 #include "crypto/s2n_hash.h"
 #include "crypto/s2n_rsa.h"
+#include "crypto/s2n_ed25519.h"
 #include "crypto/s2n_signature.h"
 #include "utils/s2n_blob.h"
 #include "utils/s2n_result.h"
@@ -30,6 +31,7 @@ typedef enum {
     S2N_PKEY_TYPE_RSA = 0,
     S2N_PKEY_TYPE_ECDSA,
     S2N_PKEY_TYPE_RSA_PSS,
+    S2N_PKEY_TYPE_ED25519,
     S2N_PKEY_TYPE_SENTINEL
 } s2n_pkey_type;
 
@@ -40,6 +42,7 @@ struct s2n_pkey {
     union {
         struct s2n_rsa_key rsa_key;
         struct s2n_ecdsa_key ecdsa_key;
+        struct s2n_ed25519_key ed25519_key;
     } key;
     EVP_PKEY *pkey;
 

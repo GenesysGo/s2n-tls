@@ -11,6 +11,8 @@
 #include "stuffer/s2n_stuffer.h"
 #include "utils/s2n_blob.h"
 
+#define ED25519_SIG_SIZE 64
+
 /* Forward declaration to avoid circular dependency with s2n_pkey.h */
 struct s2n_pkey;
 

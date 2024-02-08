@@ -47,6 +47,8 @@ S2N_RESULT s2n_pkey_setup_for_type(struct s2n_pkey *pkey, s2n_pkey_type pkey_typ
             return s2n_ecdsa_pkey_init(pkey);
         case S2N_PKEY_TYPE_RSA_PSS:
             return s2n_rsa_pss_pkey_init(pkey);
+        case S2N_PKEY_TYPE_ED25519:
+            return s2n_ed25519_pkey_init(pkey);
         case S2N_PKEY_TYPE_SENTINEL:
         case S2N_PKEY_TYPE_UNKNOWN:
             RESULT_BAIL(S2N_ERR_CERT_TYPE_UNSUPPORTED);
@@ -169,6 +171,10 @@ S2N_RESULT s2n_asn1der_to_private_key(struct s2n_pkey *priv_key, struct s2n_blob
         case EVP_PKEY_EC:
             RESULT_GUARD(s2n_ecdsa_pkey_init(priv_key));
             RESULT_GUARD(s2n_evp_pkey_to_ecdsa_private_key(&priv_key->key.ecdsa_key, evp_private_key));
+            break;
+        case EVP_PKEY_ED25519:
+            RESULT_GUARD(s2n_ed25519_pkey_init(priv_key));
+            RESULT_GUARD(s2n_evp_pkey_to_ed25519_private_key(&priv_key->key.ed25519_key, evp_private_key));
             break;
         default:
             RESULT_BAIL(S2N_ERR_DECODE_PRIVATE_KEY);
